@@ -1,0 +1,62 @@
+### C++ ###
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Incremental link
+*.ilk
+
+# Debugging
+*.pdb
+
+# Executables
+*.exe
+*.out
+*.app
+*.ipa
+
+# Folders
+/Binaries
+/DerivedDataCache
+/Intermediate
+/Plugins/**/Intermediate
+/Saved
+/Build
+
+# Visual Studio
+/.vs
+/.vscode
+*.VC.db
+*.opendb
+*.sdf
+*.sln
+*.suo
+*.xcodeproj
+*.xcworkspace
+
+# JetBrains IDE
+/.idea
+*.sln.iml
