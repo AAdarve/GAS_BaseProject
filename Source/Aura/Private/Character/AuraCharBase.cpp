@@ -1,16 +1,16 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Character/AuraCharacterBase.h"
+#include "Character/AuraCharBase.h"
 
 // Sets default values
-AAuraCharacterBase::AAuraCharacterBase()
+AAuraCharBase::AAuraCharBase()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
 }
 
-void AAuraCharacterBase::BeginPlay()
+void AAuraCharBase::BeginPlay()
 {
 	Super::BeginPlay();
 }
