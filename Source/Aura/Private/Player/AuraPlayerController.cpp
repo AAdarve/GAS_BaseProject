@@ -7,7 +7,13 @@
 
 AAuraPlayerController::AAuraPlayerController()
 {
+	bReplicates = true;
+}
 
+void AAuraPlayerController::PlayerTick(float DeltaTime)
+{
+	Super::PlayerTick(DeltaTime);
+	CursorTrace();
 }
 
 void AAuraPlayerController::BeginPlay()
@@ -49,5 +55,55 @@ void AAuraPlayerController::Move(const FInputActionValue& value)
 	{
 		ControlledPawn->AddMovementInput(ForwardDirection, InputAxisVector.Y);
 		ControlledPawn->AddMovementInput(RightDirection, InputAxisVector.X);
+	}
+}
+
+void AAuraPlayerController::CursorTrace()
+{
+	FHitResult CursorHit;
+	GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, false, CursorHit);
+	if (!CursorHit.bBlockingHit) return;
+
+	LastActor = ThisActor;
+	ThisActor = CursorHit.GetActor();
+
+	/*
+	Line trace from cursor.There are several scenarios :
+		A.LastACtor null ThiSACtor null
+		- Do nothing
+		B.lastActor is nutt ThisActor Is vatíd
+		- Hightáght rhIsActor
+		C.lastActor is vatíd ThisActor Is null
+		- UnHightight lastActor
+		D. Both actors ore vatid.but LastActor != ThisActor
+		- UnHighlight LastActor, and Highlight ThisActor
+		E.Both actors are vatid. and are the sane actor
+		- Do nothing
+	*/
+
+	if (LastActor == nullptr)
+	{
+		if (ThisActor != nullptr)
+		{
+			// B.
+			ThisActor->HighlightActor();
+		}
+	}
+	else
+	{
+		if (ThisActor != nullptr)
+		{
+			// C.
+			LastActor->UnhighlightActor();
+		}
+		else
+		{
+			// D.
+			if (LastActor != ThisActor)
+			{
+				LastActor->UnhighlightActor();
+				ThisActor->HighlightActor();
+			}
+		}
 	}
 }
