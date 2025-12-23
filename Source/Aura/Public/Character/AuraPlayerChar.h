@@ -13,5 +13,10 @@ UCLASS()
 class AURA_API AAuraPlayerChar : public AAuraCharBase
 {
 	GENERATED_BODY()
-	
+
+public:
+	AAuraPlayerChar();
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void OnRep_PlayerState() override;
+	void InitAbilityActorInfo();
 };
