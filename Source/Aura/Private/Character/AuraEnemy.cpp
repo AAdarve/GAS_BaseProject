@@ -2,6 +2,21 @@
 
 
 #include "Character/AuraEnemy.h"
+#include "GAS/Components/AuraAbilitySystemComponent.h"
+#include "GAS/Attributes/AuraAttributeSet.h"
+
+AAuraEnemy::AAuraEnemy()
+{
+	AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AbilitySystemComponent");
+	AbilitySystemComponent->SetIsReplicated(true);
+
+	AttributeSet = CreateDefaultSubobject<UAuraAttributeSet>("AttributeSet");
+}
+
+UAbilitySystemComponent* AAuraEnemy::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
 
 void AAuraEnemy::BeginPlay()
 {
