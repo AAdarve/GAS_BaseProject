@@ -66,6 +66,13 @@ void AAuraPlayerController::CursorTrace()
 
 	LastActor = ThisActor;
 	ThisActor = CursorHit.GetActor();
+	//ThisActor = nullptr;
+	//AActor* HitActor = CursorHit.GetActor();
+	//if (HitActor && HitActor->Implements<UInteractableInterface>())
+	//{
+	//	ThisActor.SetObject(HitActor);
+	//	ThisActor.SetInterface(Cast<IInteractableInterface>(HitActor));
+	//}
 
 	/*
 	Line trace from cursor.There are several scenarios :
@@ -93,17 +100,17 @@ void AAuraPlayerController::CursorTrace()
 	{
 		if (ThisActor != nullptr)
 		{
-			// C.
-			LastActor->UnhighlightActor();
-		}
-		else
-		{
 			// D.
 			if (LastActor != ThisActor)
 			{
 				LastActor->UnhighlightActor();
 				ThisActor->HighlightActor();
 			}
+		}
+		else
+		{
+			// C.
+			LastActor->UnhighlightActor();
 		}
 	}
 }

@@ -24,7 +24,4 @@ class AURA_API IInteractableInterface
 public:
 	virtual void HighlightActor() = 0;
 	virtual void UnhighlightActor() = 0;
-
-	UPROPERTY(BlueprintReadOnly)
-	bool bHighlighted = false;
 };

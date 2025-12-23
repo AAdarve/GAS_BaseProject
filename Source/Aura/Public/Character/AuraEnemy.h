@@ -16,7 +16,11 @@ class AURA_API AAuraEnemy : public AAuraCharBase, public IInteractableInterface
 	GENERATED_BODY()
 
 protected:
+	virtual void BeginPlay() override;
 	virtual void HighlightActor() override;
 	virtual void UnhighlightActor() override;
+
+	UPROPERTY(BlueprintReadOnly)
+	bool bHighlighted = false;
 	
 };
