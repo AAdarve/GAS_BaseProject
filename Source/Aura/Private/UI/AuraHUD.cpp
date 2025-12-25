@@ -3,12 +3,30 @@
 
 #include "UI/AuraHUD.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
+#include "UI/WidgetControllers/HUDWidgetController.h"
 #include "Blueprint/UserWidget.h"
 
-void AAuraHUD::BeginPlay()
+UHUDWidgetController* AAuraHUD::GetHudWidgetController(const FWidgetControllerParams& WCParams)
 {
-	Super::BeginPlay();
+	if (HUDWidget == nullptr)
+	{
+		HUDWidgetController = NewObject<UHUDWidgetController>(this, HUDWidgetControllerClass);
+		HUDWidgetController->SetWidgetControllerParams(WCParams);
+	}
+	return HUDWidgetController;
+}
+
+void AAuraHUD::InitHUD(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)
+{
+	checkf(HUDWidgetClass, TEXT("HUd widget class not initialized"));
+	checkf(HUDWidgetControllerClass, TEXT("HUd widget controller class not initialized"));
 
 	UUserWidget* Widget = CreateWidget<UUserWidget>(GetWorld(), HUDWidgetClass);
-	Widget->AddToViewport();
+	HUDWidget = Cast<UAuraUserWidget>(Widget);
+
+	const FWidgetControllerParams WCParams(PC, PS, ASC, AS);
+	UHUDWidgetController* HUDController = GetHudWidgetController(WCParams);
+
+	HUDWidget->SetWidgetController(HUDController);
+	HUDWidget->AddToViewport();
 }

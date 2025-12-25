@@ -3,6 +3,9 @@
 
 #include "Character/AuraPlayerChar.h"
 #include "Player/AuraPlayerState.h"
+#include "UI/AuraHUD.h"
+
+class AAuraHUD;
 
 AAuraPlayerChar::AAuraPlayerChar()
 {
@@ -32,4 +35,14 @@ void AAuraPlayerChar::InitAbilityActorInfo()
 	PS->GetAbilitySystemComponent()->InitAbilityActorInfo(PS, this);
 	AbilitySystemComponent = PS->GetAbilitySystemComponent();
 	AttributeSet = PS->GetAttributeSet();
+
+	//This controller only exist in owning client and server, others will fail this condition
+	if (APlayerController* PC = Cast<APlayerController>(GetController()))
+	{
+		//HUD only exists on clinet, server will fail this
+		if (AAuraHUD* HUD = PC->GetHUD<AAuraHUD>())
+		{
+			HUD->InitHUD(PC, PS, AbilitySystemComponent, AttributeSet);
+		}
+	}
 }
