@@ -10,3 +10,7 @@ void UAuraWidgetController::SetWidgetControllerParams(const FWidgetControllerPar
 	PlayerState = WCParams.PlayerState;
 	AttributeSet = WCParams.AttributeSet;
 }
+
+void UAuraWidgetController::BroadcastInitialValues()
+{
+}

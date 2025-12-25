@@ -8,7 +8,7 @@
 
 UHUDWidgetController* AAuraHUD::GetHudWidgetController(const FWidgetControllerParams& WCParams)
 {
-	if (HUDWidget == nullptr)
+	if (HUDWidgetController == nullptr)
 	{
 		HUDWidgetController = NewObject<UHUDWidgetController>(this, HUDWidgetControllerClass);
 		HUDWidgetController->SetWidgetControllerParams(WCParams);
@@ -28,5 +28,6 @@ void AAuraHUD::InitHUD(APlayerController* PC, APlayerState* PS, UAbilitySystemCo
 	UHUDWidgetController* HUDController = GetHudWidgetController(WCParams);
 
 	HUDWidget->SetWidgetController(HUDController);
+	HUDController->BroadcastInitialValues();
 	HUDWidget->AddToViewport();
 }

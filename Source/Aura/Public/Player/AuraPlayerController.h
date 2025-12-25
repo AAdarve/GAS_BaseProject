@@ -38,5 +38,4 @@ private:
 
 	TScriptInterface<IInteractableInterface> ThisActor;
 	TScriptInterface<IInteractableInterface> LastActor;
-
 };
