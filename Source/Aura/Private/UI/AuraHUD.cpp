@@ -12,6 +12,7 @@ UHUDWidgetController* AAuraHUD::GetHudWidgetController(const FWidgetControllerPa
 	{
 		HUDWidgetController = NewObject<UHUDWidgetController>(this, HUDWidgetControllerClass);
 		HUDWidgetController->SetWidgetControllerParams(WCParams);
+		HUDWidgetController->BindCallbacksToDependencies();
 	}
 	return HUDWidgetController;
 }

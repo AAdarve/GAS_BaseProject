@@ -12,3 +12,36 @@ void UHUDWidgetController::BroadcastInitialValues()
 	OnManaChanged.Broadcast(AuraAttributeSet->GetMana());
 	OnMaxManaChanged.Broadcast(AuraAttributeSet->GetMaxMana());
 }
+
+void UHUDWidgetController::BindCallbacksToDependencies()
+{
+	UAuraAttributeSet* AuraAttributeSet = CastChecked<UAuraAttributeSet>(AttributeSet);
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
+		AuraAttributeSet->GetHealthAttribute()).AddUObject(this, &UHUDWidgetController::HealthChanged);
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
+		AuraAttributeSet->GetMaxHealthAttribute()).AddUObject(this, &UHUDWidgetController::MaxHealthChanged);
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
+		AuraAttributeSet->GetManaAttribute()).AddUObject(this, &UHUDWidgetController::ManaChanged);
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
+		AuraAttributeSet->GetMaxManaAttribute()).AddUObject(this, &UHUDWidgetController::MaxManaChanged);
+}
+
+void UHUDWidgetController::HealthChanged(const FOnAttributeChangeData& Data) const
+{
+	OnHealthChanged.Broadcast(Data.NewValue);
+}
+
+void UHUDWidgetController::MaxHealthChanged(const FOnAttributeChangeData& Data) const
+{
+	OnMaxHealthChanged.Broadcast(Data.NewValue);
+}
+
+void UHUDWidgetController::ManaChanged(const FOnAttributeChangeData& Data) const
+{
+	OnManaChanged.Broadcast(Data.NewValue);
+}
+
+void UHUDWidgetController::MaxManaChanged(const FOnAttributeChangeData& Data) const
+{
+	OnMaxManaChanged.Broadcast(Data.NewValue);
+}
